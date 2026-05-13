@@ -90,3 +90,92 @@ alter table customer_info
 modify address varchar(30);
 ## drop a column
 alter table customer_info drop column email;
+
+use librarydb;
+
+create table authors(
+authortId int,
+firtsname varchar(25),
+lastname VARCHAR(25),
+email varchar(25)
+);
+
+insert authors values
+(1, "krish1", "Naik1", "example1@gmail.com");
+
+select * from authors;
+
+# lets explore the schema of the table
+
+desc authors;
+
+drop table authors;
+create table authors(
+authortId int primary key,
+firtsname varchar(25),
+lastname VARCHAR(25),
+email varchar(25)
+);
+
+insert authors values
+(2, "krish2", "Naik2", "example2@gmail.com");
+
+select * from authors;
+
+select * from authors where authortId = 1;
+
+desc authors;
+
+# forieng key : establish a relationship between two tables ensuring referntial integrity
+
+
+
+
+## primary Key: Uniquely identifies each record in a table.
+
+
+#drop table authors;
+
+## Foreign Key: Establishes a relationship between two tables, ensuring referential integrity. 
+# we refrence a primary key to the other table
+## authorId would be a refrence in the author table. thus authorId is a foriegn key in the books table.
+
+CREATE TABLE books(
+    bookId INT PRIMARY KEY,
+    title VARCHAR(25) NOT NULL,
+    authorId INT,
+    publicationyear INT CHECK (publicationyear > 0),
+    FOREIGN KEY (authorId) REFERENCES authors(authortId)
+);
+
+desc books;
+
+select * from authors;
+
+insert into books values(1, "Harry Potter", 1, 2022);
+insert into books values(2, "Harry Potter", 2, 2022);
+select * from books;
+
+desc books;
+
+insert into books values(3, "harry potter", null, 2022);
+
+select * from books;
+
+
+## not null, unique
+create table student(
+id int not null,
+firstname varchar(25),
+lastname varchar(25) not null,
+age int
+);
+
+
+desc student;
+
+alter table student 
+modify age int not null;
+
+
+desc student;
